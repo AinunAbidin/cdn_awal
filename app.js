@@ -18,11 +18,12 @@ app.set('views',view_path)
 
 
 app.use(requestIp.mw())
+var trusted_proxies = ['177.144.11.100', '177.144.11.101'];
 app.use(function(req, res, next) {
-  var ip_info = getIP(req);
-  console.log(ip_info);
-  // { clientIp: '127.0.0.1', clientIpRoutable: false }
-  next();
+    var ip_info = getIP(req, trusted_proxies);
+    console.log(ip_info);
+    // { clientIp: '177.100.44.22', clientIpRoutable: true }
+    next();
 });
 
 app.use(express.static(public_path));
